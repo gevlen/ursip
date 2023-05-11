@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_PATH: ${DB_PATH}
+    ports:
+      - "9999:9999"
+    entrypoint: bash -c 'alembic upgrade head && uvicorn src.asgi:app --host ${API_HOST} --port ${API_PORT}'
